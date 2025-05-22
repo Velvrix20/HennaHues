@@ -9,11 +9,6 @@ import { Toaster } from "react-hot-toast";
 import Link from "next/link";
 
 export const MyContext = React.createContext();
-export const metadata = {
-  metadataBase: new URL('https://hennahues.velvrix.site'), // Your production URL
-  title: 'Henna Hues',
-  // ...other metadata
-}
 export default function Home() {
   const [photosArray, setPhotosArray] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -118,4 +113,10 @@ export default function Home() {
       </main>
     </MyContext.Provider>
   )
+}
+
+export const metadata = {
+  metadataBase: new URL('https://hennahues.com'), // Your production URL
+  title: 'Henna Hues',
+  // ...other metadata
 }
