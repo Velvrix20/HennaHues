@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import { fetchImageApi_search } from "@/lib/utilities";
 import PopModal from "../components/PopModal";
 import NavBar from "../components/navBar";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import AllPhotos from "../components/AllPhotos";
 import LoadindDiv from "../elements/LoadindDiv";
@@ -22,8 +22,9 @@ export default function SearchResultsPage({ params: { query } }) {
         status: false
     });
 
-    const searchHandler = async () => {
-        setIsLoading(true)
+    // Wrap searchHandler in useCallback to prevent unnecessary recreations
+    const searchHandler = useCallback(async () => {
+        setIsLoading(true);
         setPhotosArray([]);
         try {
             const preLoad = fetchImageApi_search;
@@ -31,38 +32,40 @@ export default function SearchResultsPage({ params: { query } }) {
             setPhotosArray([...photosResult]);
             toast.success(`Search Results: ${photosResult.length}`, {
                 style: {
-                  border: '1px solid #713200',
-                  padding: '16px',
-                  color: '#713200',
+                    border: '1px solid #713200',
+                    padding: '16px',
+                    color: '#713200',
                 },
                 iconTheme: {
-                  primary: '#713200',
-                  secondary: '#FFFAEE',
+                    primary: '#713200',
+                    secondary: '#FFFAEE',
                 },
-              });
+            });
         } catch (error) {
             setHasError(true);
-        }finally{
+            console.error("Search error:", error);
+        } finally {
             setIsLoading(false);
         }
-    }
+    }, [query]); // query is now a dependency
 
     useEffect(() => {
-        searchHandler()
-    }, [query]);
+        searchHandler();
+    }, [searchHandler]); // Now properly includes all dependencies
 
-    const viewPop = (data) => {
+    const viewPop = useCallback((data) => {
         const { src, alt, photographer, photographerLink, avg_color } = data;
-        setPopData({
-            ...popData,
+        setPopData(prev => ({
+            ...prev,
             imgSrc: src,
             imgAlt: alt,
             photographer,
             photographerLink,
             avg_color,
             status: true
-        });
-    }
+        }));
+    }, []);
+
     return (
         <searchContext.Provider value={{ viewPop }}>
             <main className="w-screen h-screen overflow-auto">
@@ -70,14 +73,26 @@ export default function SearchResultsPage({ params: { query } }) {
                 <Toaster
                     position="bottom-right"
                     reverseOrder={false}
-                 />
-                {!hasError && <div className="p-1">
-                    <AllPhotos photoGrid={photosArray} contextObj={searchContext} />
-                </div>}
-                {isLoading && <LoadindDiv />}
-                {!isLoading && !hasError && photosArray.length === 0 && <NoImage />}
-                {!isLoading && !hasError && photosArray.length > 0 && <div className="p-3 mx-auto justify-center text-center">You&apos;ve reached the end</div>}
-                {hasError && <div className="p-3 mx-auto justify-center text-center">Oops! an error occured, refresh page</div> }
+                />
+                <div className="min-h-[calc(100vh-4rem)]">
+                    {!hasError && (
+                        <div className="p-1">
+                            <AllPhotos photoGrid={photosArray} contextObj={searchContext} />
+                        </div>
+                    )}
+                    {isLoading && <LoadindDiv />}
+                    {!isLoading && !hasError && photosArray.length === 0 && <NoImage />}
+                    {!isLoading && !hasError && photosArray.length > 0 && (
+                        <div className="p-3 mx-auto justify-center text-center">
+                            You&apos;ve reached the end
+                        </div>
+                    )}
+                    {hasError && (
+                        <div className="p-3 mx-auto justify-center text-center">
+                            Oops! An error occurred, please refresh the page
+                        </div>
+                    )}
+                </div>
                 <PopModal
                     avg={popData.avg_color}
                     imgAlt={popData.imgAlt}
