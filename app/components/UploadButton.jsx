@@ -1,14 +1,15 @@
-// components/UploadButton.tsx
+// components/UploadButton.jsx
 'use client';
 
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { toast } from 'react-hot-toast';
+import PropTypes from 'prop-types';
 
-export const UploadButton = ({ onUploadSuccess }: { onUploadSuccess?: () => void }) => {
+export const UploadButton = ({ onUploadSuccess }) => {
   const [uploading, setUploading] = useState(false);
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = async (e) => {
     try {
       setUploading(true);
       
@@ -51,4 +52,8 @@ export const UploadButton = ({ onUploadSuccess }: { onUploadSuccess?: () => void
       </label>
     </div>
   );
+};
+
+UploadButton.propTypes = {
+  onUploadSuccess: PropTypes.func
 };
