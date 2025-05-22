@@ -114,9 +114,3 @@ export default function Home() {
     </MyContext.Provider>
   )
 }
-
-export const metadata = {
-  metadataBase: new URL('https://hennahues.com'), // Your production URL
-  title: 'Henna Hues',
-  // ...other metadata
-}
