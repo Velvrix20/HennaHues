@@ -1,4 +1,4 @@
-// components/MediaGrid.tsx
+// components/MediaGrid.jsx
 import { useState, useEffect } from 'react';
 import Masonry from 'react-masonry-css';
 import { fetchMediaFromSupabase } from '../lib/mediaService';
@@ -12,7 +12,7 @@ const breakpointColumnsObj = {
 };
 
 export const MediaGrid = () => {
-  const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
+  const [mediaItems, setMediaItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const loadMedia = async () => {
