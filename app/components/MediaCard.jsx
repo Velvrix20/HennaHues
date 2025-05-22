@@ -6,6 +6,18 @@ MediaCard.propTypes = {
   item: mediaItemPropTypes.isRequired,
 };
 
+import Image from 'next/image';
+
+// Replace <img> with:
+<Image
+  src={item.url}
+  alt={item.title || ''}
+  width={500} // Set actual width
+  height={300} // Set actual height
+  className="w-full h-auto object-cover"
+  loading="lazy"
+/>
+
 const MediaCard = ({ item }) => {
   return (
     <div className="mb-4 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
