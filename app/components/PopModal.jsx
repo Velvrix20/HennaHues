@@ -8,6 +8,12 @@ import { copyToClipboard } from "../lib/utils";
 import { downloadHandler } from "@/lib/utilities";
 import toast from "react-hot-toast";
 
+// Option B: Move clean inside effect
+useEffect(() => {
+  const clean = () => { /* cleanup */ };
+  return clean;
+}, []);
+
 export default function PopModal({imgSrc, imgAlt, photographer, avg, photographerUrl, status, clean}) {
     const [modalShowing, setModalShowing] = useState(status);
 
