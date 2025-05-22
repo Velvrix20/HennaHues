@@ -22,7 +22,7 @@ export const UploadButton = ({ onUploadSuccess }: { onUploadSuccess?: () => void
       const filePath = `${fileName}`;
 
       const { error: uploadError } = await supabase.storage
-        .from('photobook')
+        .from('hennastore')
         .upload(filePath, file);
 
       if (uploadError) throw uploadError;
