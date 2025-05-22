@@ -1,5 +1,10 @@
 // components/MediaCard.jsx
 import PropTypes from 'prop-types';
+import { mediaItemPropTypes } from '../lib/propTypes';
+
+MediaCard.propTypes = {
+  item: mediaItemPropTypes.isRequired,
+};
 
 const MediaCard = ({ item }) => {
   return (
