@@ -1,4 +1,5 @@
 // components/MediaGrid.jsx
+import MediaCard from './MediaCard'; // Changed from named to default import
 import { useState, useEffect } from 'react';
 import Masonry from 'react-masonry-css';
 import { fetchMediaFromSupabase } from '../lib/mediaService';
