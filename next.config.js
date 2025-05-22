@@ -1,15 +1,11 @@
 /** @type {import('next').NextConfig} */
-/**const nextConfig = { This is default 
-    images: {
-        domains: ["images.pexels.com"],
-    },
+const nextConfig = {
+  images: {
+    domains: [
+      'supabase.co', // Allows all Supabase domains
+      'bjulguxvkirbdsrcygfy.supabase.co' // Replace with your actual Supabase URL
+    ],
+  }
 }
 
-module.exports = nextConfig; */  
-
-module.export: {
-domains: [
-    'https://bjulguxvkirbdsrcygfy.supabase.co'
-   ],
-  },
-}
+module.exports = nextConfig
