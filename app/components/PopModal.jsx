@@ -24,12 +24,6 @@ export default function PopModal({imgSrc, imgAlt, photographer, avg, photographe
         }
     }, [modalShowing]);
 
-  // Option B: Move clean inside effect
-useEffect(() => {
-  const clean = () => { /* cleanup */ };
-  return clean;
-}, []);
-
     const performDownload = () => {
         const promise = downloadHandler({imgAlt, imgSrc});
         toast.promise(promise, {
