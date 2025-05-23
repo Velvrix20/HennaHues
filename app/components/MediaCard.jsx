@@ -1,12 +1,5 @@
-// components/MediaCard.jsx
 import PropTypes from 'prop-types';
 import Image from 'next/image';
-import { mediaItemPropTypes } from '../lib/propTypes';
-
-MediaCard.propTypes = {
-  item: mediaItemPropTypes.isRequired,
-};
-
 
 const MediaCard = ({ item }) => {
   return (
@@ -15,16 +8,16 @@ const MediaCard = ({ item }) => {
         <Image
           src={item.url}
           alt={item.title || ''}
-          width={500} // Set actual width
-          height={300} // Set actual height
+          width={500}
+          height={300}
           className="w-full h-auto object-cover"
           loading="lazy"
-          />
+        />
       ) : (
         <video
           controls
           className="w-full"
-          poster={item.url.replace('.mp4', '.jpg')} // Optional thumbnail
+          poster={`/default-thumbnail.jpg`} // Optional fallback
         >
           <source src={item.url} type={`video/${item.url.split('.').pop()}`} />
         </video>
@@ -46,8 +39,6 @@ MediaCard.propTypes = {
     type: PropTypes.oneOf(['image', 'video']).isRequired,
     url: PropTypes.string.isRequired,
     title: PropTypes.string,
-    width: PropTypes.number,
-    height: PropTypes.number,
     created_at: PropTypes.string,
   }).isRequired,
 };
