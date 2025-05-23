@@ -5,7 +5,7 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: process.env.NEXT_PUBLIC_SUPABASE_URL?.replace('https://', '') || '',
-        pathname: '/storage/v1/object/public/**',
+        pathname: '/storage/v1/object/public/hennastore/**',
         port: ''
       }
     ],
